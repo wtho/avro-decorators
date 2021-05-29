@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES2020", // you have to target es5+
+    "module": "CommonJS",
+    "importHelpers": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "outDir": "./build",
+    "declaration": true,
+    "types": ["reflect-metadata", "node", "jest"],
+  },
+  "include": ["src/**/*"],
+  "exclude": ["src/**/*.test.ts", "test/"]
+}

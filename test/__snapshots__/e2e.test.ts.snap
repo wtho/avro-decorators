@@ -1,0 +1,136 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`e2e run 'generate -c <config-path>' for test-app-1 with config in different folder 1`] = `
+"Writing 1 files...
+ * wrote Fruit to Fruit.avsc"
+`;
+
+exports[`e2e run 'generate -c <config-path>' for test-app-1 with config in different folder 2`] = `
+"{
+  \\"type\\": \\"record\\",
+  \\"name\\": \\"Fruit\\",
+  \\"fields\\": [
+    {
+      \\"name\\": \\"id\\",
+      \\"type\\": \\"int\\"
+    },
+    {
+      \\"name\\": \\"name\\",
+      \\"type\\": \\"string\\",
+      \\"doc\\": \\"The name of the fruit\\"
+    },
+    {
+      \\"name\\": \\"origin\\",
+      \\"type\\": {
+        \\"type\\": \\"record\\",
+        \\"name\\": \\"Origin\\",
+        \\"namespace\\": \\"fruits.meta\\",
+        \\"doc\\": \\"An origin location\\",
+        \\"fields\\": [
+          {
+            \\"name\\": \\"continent\\",
+            \\"type\\": \\"string\\",
+            \\"doc\\": \\"The continent the fruit is originally from\\"
+          }
+        ]
+      },
+      \\"doc\\": \\"The origin of the fruit\\"
+    },
+    {
+      \\"name\\": \\"fruitType\\",
+      \\"type\\": {
+        \\"type\\": \\"enum\\",
+        \\"symbols\\": [
+          \\"berry\\",
+          \\"tropical\\"
+        ],
+        \\"name\\": \\"FruitType\\"
+      }
+    },
+    {
+      \\"name\\": \\"flavours\\",
+      \\"type\\": {
+        \\"type\\": \\"array\\",
+        \\"items\\": \\"string\\"
+      },
+      \\"default\\": []
+    },
+    {
+      \\"name\\": \\"inventory\\",
+      \\"type\\": {
+        \\"type\\": \\"map\\",
+        \\"values\\": \\"int\\"
+      }
+    }
+  ]
+}
+"
+`;
+
+exports[`e2e run 'generate' for test-app-1 with config in root 1`] = `
+"Printing schemas to stdout, as option 'outDir' is not set in config
+
+Fruit - Fruit.avsc
+
+{
+  \\"type\\": \\"record\\",
+  \\"name\\": \\"Fruit\\",
+  \\"fields\\": [
+    {
+      \\"name\\": \\"id\\",
+      \\"type\\": \\"int\\"
+    },
+    {
+      \\"name\\": \\"name\\",
+      \\"type\\": \\"string\\",
+      \\"doc\\": \\"The name of the fruit\\"
+    },
+    {
+      \\"name\\": \\"origin\\",
+      \\"type\\": {
+        \\"type\\": \\"record\\",
+        \\"name\\": \\"Origin\\",
+        \\"namespace\\": \\"fruits.meta\\",
+        \\"doc\\": \\"An origin location\\",
+        \\"fields\\": [
+          {
+            \\"name\\": \\"continent\\",
+            \\"type\\": \\"string\\",
+            \\"doc\\": \\"The continent the fruit is originally from\\"
+          }
+        ]
+      },
+      \\"doc\\": \\"The origin of the fruit\\"
+    },
+    {
+      \\"name\\": \\"fruitType\\",
+      \\"type\\": {
+        \\"type\\": \\"enum\\",
+        \\"symbols\\": [
+          \\"berry\\",
+          \\"tropical\\"
+        ],
+        \\"name\\": \\"FruitType\\"
+      }
+    },
+    {
+      \\"name\\": \\"flavours\\",
+      \\"type\\": {
+        \\"type\\": \\"array\\",
+        \\"items\\": \\"string\\"
+      },
+      \\"default\\": []
+    },
+    {
+      \\"name\\": \\"inventory\\",
+      \\"type\\": {
+        \\"type\\": \\"map\\",
+        \\"values\\": \\"int\\"
+      }
+    }
+  ]
+}
+
+
+"
+`;

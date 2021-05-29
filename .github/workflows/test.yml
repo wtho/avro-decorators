@@ -1,0 +1,15 @@
+name: test
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: deps and run tests
+        run: |
+          npm ci
+          npm run build
+          npm test

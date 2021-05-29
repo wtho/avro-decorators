@@ -1,0 +1,58 @@
+{
+  "type": "record",
+  "name": "Fruit",
+  "fields": [
+    {
+      "name": "id",
+      "type": "int"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "doc": "The name of the fruit"
+    },
+    {
+      "name": "origin",
+      "type": {
+        "type": "record",
+        "name": "Origin",
+        "namespace": "fruits.meta",
+        "doc": "An origin location",
+        "fields": [
+          {
+            "name": "continent",
+            "type": "string",
+            "doc": "The continent the fruit is originally from"
+          }
+        ]
+      },
+      "doc": "The origin of the fruit"
+    },
+    {
+      "name": "fruitType",
+      "type": {
+        "type": "enum",
+        "symbols": [
+          "berry",
+          "tropical"
+        ],
+        "name": "FruitType"
+      }
+    },
+    {
+      "name": "flavours",
+      "type": {
+        "type": "array",
+        "items": "string"
+      },
+      "default": []
+    },
+    {
+      "name": "inventory",
+      "type": {
+        "type": "map",
+        "values": "int"
+      }
+    }
+  ]
+}
