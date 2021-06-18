@@ -1,22 +1,32 @@
-import { OfType, BaseDecoratorArgs, ClassType, BaseTypeMetadata } from '../types'
 import {
-  enrichDecoratorMetadata,
+  BaseFieldDecoratorArgs,
+  Prototype,
+  ReferencedTypeMetadata,
+} from '../types'
+import {
+  determineFieldMetadataFromProps,
+  storeAvroFieldReflectionMetadata,
   storeAvroFieldTypeReflectionMetadata,
 } from '../internals/decorator-utils'
 
 export function AvroReferenceByName(
-  isReferenceProps: {
-    referencedTypeName: string
-  } & BaseDecoratorArgs<unknown>
-): (target: any, propertyKey: string) => void {
-  return function (target: any, propertyKey: string) {
-    const typeMetadata: {
-      referencedTypeName: string
-    } & BaseTypeMetadata<unknown> = enrichDecoratorMetadata(
-      { typeName: 'reference', referencedTypeName: isReferenceProps.referencedTypeName },
-      isReferenceProps
+  referenceProps?: {
+    reference: string
+  } & BaseFieldDecoratorArgs<string>
+): (target: Prototype, propertyKey: string) => void {
+  // TODO check this is no primitive type
+  return function (target: Prototype, propertyKey: string) {
+    const fieldMetadata = determineFieldMetadataFromProps(
+      propertyKey,
+      referenceProps
     )
+    const typeMetadata: ReferencedTypeMetadata = {
+      typeName: 'referenced-defined-type',
+      reference: referenceProps.reference,
+      nullable: referenceProps?.nullable ?? false,
+    }
 
+    storeAvroFieldReflectionMetadata(fieldMetadata, target, propertyKey)
     storeAvroFieldTypeReflectionMetadata(typeMetadata, target, propertyKey)
   }
 }

@@ -2,10 +2,9 @@ import { Schema } from '../avro.types'
 import { Config, Constructable, Logger } from '../types'
 import * as path from 'path'
 import { promises as fs } from 'fs'
-import { avroSchemaFromClass } from '../internals/schema-builder'
+import { avroSchemaFromClass } from '../schema-builder'
 import {
   getSchemaStringName,
-  isComplexNamedSchema,
   isSchemaValid,
 } from '../internals/avro-helper'
 
@@ -43,7 +42,7 @@ export function isAvroDecoratedModel(model: Constructable<unknown>): boolean {
   if (!metadata) {
     return false
   }
-  if (!metadata.typeName || !metadata.name) {
+  if (!metadata.name) {
     return false
   }
   return true

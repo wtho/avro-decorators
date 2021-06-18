@@ -1,18 +1,29 @@
-import { BaseDecoratorArgs, BaseTypeMetadata } from '../types'
 import {
-  enrichDecoratorMetadata,
+  BaseFieldDecoratorArgs,
+  PrimitiveDefinedTypeMetadata,
+  Prototype,
+} from '../types'
+import {
+  determineFieldMetadataFromProps,
+  storeAvroFieldReflectionMetadata,
   storeAvroFieldTypeReflectionMetadata,
 } from '../internals/decorator-utils'
 
 export function AvroLong(
-  isLongProps?: BaseDecoratorArgs<number>
-): (target: any, propertyKey: string) => void {
-  return function (target: any, propertyKey: string) {
-    const typeMetadata: BaseTypeMetadata<number> = enrichDecoratorMetadata(
-      { typeName: 'long' },
-      isLongProps
+  longProps?: BaseFieldDecoratorArgs<number>
+): (target: Prototype, propertyKey: string) => void {
+  return function (target: Prototype, propertyKey: string) {
+    const fieldMetadata = determineFieldMetadataFromProps(
+      propertyKey,
+      longProps
     )
+    const typeMetadata: PrimitiveDefinedTypeMetadata = {
+      typeName: 'primitive-defined-type',
+      primitiveDefinedType: 'long',
+      nullable: longProps?.nullable ?? false,
+    }
 
+    storeAvroFieldReflectionMetadata(fieldMetadata, target, propertyKey)
     storeAvroFieldTypeReflectionMetadata(typeMetadata, target, propertyKey)
   }
 }

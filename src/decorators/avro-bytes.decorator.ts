@@ -1,18 +1,29 @@
-import { BaseDecoratorArgs, BaseTypeMetadata } from '../types'
 import {
-  enrichDecoratorMetadata,
+  BaseFieldDecoratorArgs,
+  PrimitiveDefinedTypeMetadata,
+  Prototype,
+} from '../types'
+import {
+  determineFieldMetadataFromProps,
+  storeAvroFieldReflectionMetadata,
   storeAvroFieldTypeReflectionMetadata,
 } from '../internals/decorator-utils'
 
 export function AvroBytes(
-  isBytesProps?: BaseDecoratorArgs<unknown> // TODO what's a bytes default?
-): (target: any, propertyKey: string) => void {
-  return function (target: any, propertyKey: string) {
-    const typeMetadata: BaseTypeMetadata<unknown> = enrichDecoratorMetadata(
-      { typeName: 'bytes' },
-      isBytesProps
+  bytesProps?: BaseFieldDecoratorArgs<unknown> // TODO what's a byte's default?
+): (target: Prototype, propertyKey: string) => void {
+  return function (target: Prototype, propertyKey: string) {
+    const fieldMetadata = determineFieldMetadataFromProps(
+      propertyKey,
+      bytesProps
     )
+    const typeMetadata: PrimitiveDefinedTypeMetadata = {
+      typeName: 'primitive-defined-type',
+      primitiveDefinedType: 'bytes',
+      nullable: bytesProps?.nullable ?? false,
+    }
 
+    storeAvroFieldReflectionMetadata(fieldMetadata, target, propertyKey)
     storeAvroFieldTypeReflectionMetadata(typeMetadata, target, propertyKey)
   }
 }

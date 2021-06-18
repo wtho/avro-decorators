@@ -17,7 +17,7 @@ export type ComplexAvroType =
   | 'fixed'
 export type BasicAvroType = PrimitiveAvroType | ComplexAvroType
 
-export type ComplexSchemaRef = string
+export type ComplexSchemaRef = string 
 export type DirectSchemaType = PrimitiveAvroType | ComplexSchemaRef
 
 export type PrimitiveSchemaType = { type: PrimitiveAvroType }
@@ -46,7 +46,7 @@ export interface EnumSchemaType {
   namespace?: string
   aliases?: string[]
   doc?: string
-  symbols: string[]
+  symbols: readonly string[]
   default?: string
 }
 

@@ -16,7 +16,7 @@ type FruitType = typeof fruitTypes[number]
   namespace: 'fruits.meta',
 })
 export class Origin {
-  @AvroString({ description: 'The continent the fruit is originally from' })
+  @AvroString({ fieldDoc: 'The continent the fruit is originally from' })
   continent: string
 }
 
@@ -25,18 +25,18 @@ export class Fruit {
   @AvroInt()
   id: number
 
-  @AvroString({ description: 'The name of the fruit' })
+  @AvroString({ fieldDoc: 'The name of the fruit' })
   name: string
 
-  @AvroRecord({ ofType: () => Origin, description: 'The origin of the fruit' })
+  @AvroRecord({ ofType: () => Origin, fieldDoc: 'The origin of the fruit' })
   origin: Origin
 
   @AvroEnum({ name: 'FruitType', symbols: fruitTypes })
   fruitType: FruitType
 
-  @AvroArray({ ofType: () => 'string', default: [] })
+  @AvroArray({ ofType: 'string', fieldDefault: [] })
   flavours: string[]
 
-  @AvroMap({ ofType: () => 'int' })
+  @AvroMap({ ofType: 'int' })
   inventory: Record<string, number>
 }

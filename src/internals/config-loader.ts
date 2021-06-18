@@ -8,10 +8,10 @@ import { Argv } from 'yargs'
 const validCommands = ['generate'] as const
 type Command = typeof validCommands[number]
 
-export function parseArgs(args: string[]): {
+export async function parseArgs(args: string[]): Promise<{
   parsedYargs: Argv<{ config: string }>
   command: Command
-} {
+}> {
   const parsedYargs = yargs(args)
     .option('config', {
       alias: 'c',
@@ -31,7 +31,7 @@ export function parseArgs(args: string[]): {
     .help('h')
     .showHelpOnFail(true)
 
-  const { argv } = parsedYargs
+  const argv = await parsedYargs.argv
 
   const command = `${argv._[0]}` as Command
 

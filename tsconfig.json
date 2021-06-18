@@ -12,6 +12,4 @@
     "declaration": true,
     "types": ["reflect-metadata", "node", "jest"],
   },
-  "include": ["src/**/*"],
-  "exclude": ["src/**/*.test.ts", "test/"]
 }

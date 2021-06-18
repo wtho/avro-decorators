@@ -1,11 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`e2e run 'generate -c <config-path>' for test-app-1 with config in different folder 1`] = `
-"Writing 1 files...
- * wrote Fruit to Fruit.avsc"
-`;
-
-exports[`e2e run 'generate -c <config-path>' for test-app-1 with config in different folder 2`] = `
 "{
   \\"type\\": \\"record\\",
   \\"name\\": \\"Fruit\\",
@@ -24,15 +19,15 @@ exports[`e2e run 'generate -c <config-path>' for test-app-1 with config in diffe
       \\"type\\": {
         \\"type\\": \\"record\\",
         \\"name\\": \\"Origin\\",
-        \\"namespace\\": \\"fruits.meta\\",
-        \\"doc\\": \\"An origin location\\",
         \\"fields\\": [
           {
             \\"name\\": \\"continent\\",
             \\"type\\": \\"string\\",
             \\"doc\\": \\"The continent the fruit is originally from\\"
           }
-        ]
+        ],
+        \\"namespace\\": \\"fruits.meta\\",
+        \\"doc\\": \\"An origin location\\"
       },
       \\"doc\\": \\"The origin of the fruit\\"
     },
@@ -40,11 +35,11 @@ exports[`e2e run 'generate -c <config-path>' for test-app-1 with config in diffe
       \\"name\\": \\"fruitType\\",
       \\"type\\": {
         \\"type\\": \\"enum\\",
+        \\"name\\": \\"FruitType\\",
         \\"symbols\\": [
           \\"berry\\",
           \\"tropical\\"
-        ],
-        \\"name\\": \\"FruitType\\"
+        ]
       }
     },
     {
@@ -61,6 +56,41 @@ exports[`e2e run 'generate -c <config-path>' for test-app-1 with config in diffe
         \\"type\\": \\"map\\",
         \\"values\\": \\"int\\"
       }
+    },
+    {
+      \\"name\\": \\"anything\\",
+      \\"type\\": [
+        \\"string\\",
+        \\"Fruit\\",
+        {
+          \\"type\\": \\"enum\\",
+          \\"name\\": \\"Letter\\",
+          \\"symbols\\": [
+            \\"A\\",
+            \\"B\\",
+            \\"C\\"
+          ]
+        },
+        {
+          \\"type\\": \\"array\\",
+          \\"items\\": \\"string\\"
+        },
+        {
+          \\"type\\": \\"map\\",
+          \\"values\\": \\"string\\"
+        },
+        {
+          \\"type\\": \\"fixed\\",
+          \\"name\\": \\"MyFixedThing\\",
+          \\"size\\": 4
+        },
+        {
+          \\"type\\": \\"record\\",
+          \\"name\\": \\"MyInlineRecord\\",
+          \\"fields\\": []
+        }
+      ],
+      \\"doc\\": \\"An examplary union\\"
     }
   ]
 }
@@ -90,15 +120,15 @@ Fruit - Fruit.avsc
       \\"type\\": {
         \\"type\\": \\"record\\",
         \\"name\\": \\"Origin\\",
-        \\"namespace\\": \\"fruits.meta\\",
-        \\"doc\\": \\"An origin location\\",
         \\"fields\\": [
           {
             \\"name\\": \\"continent\\",
             \\"type\\": \\"string\\",
             \\"doc\\": \\"The continent the fruit is originally from\\"
           }
-        ]
+        ],
+        \\"namespace\\": \\"fruits.meta\\",
+        \\"doc\\": \\"An origin location\\"
       },
       \\"doc\\": \\"The origin of the fruit\\"
     },
@@ -106,11 +136,11 @@ Fruit - Fruit.avsc
       \\"name\\": \\"fruitType\\",
       \\"type\\": {
         \\"type\\": \\"enum\\",
+        \\"name\\": \\"FruitType\\",
         \\"symbols\\": [
           \\"berry\\",
           \\"tropical\\"
-        ],
-        \\"name\\": \\"FruitType\\"
+        ]
       }
     },
     {
@@ -127,6 +157,41 @@ Fruit - Fruit.avsc
         \\"type\\": \\"map\\",
         \\"values\\": \\"int\\"
       }
+    },
+    {
+      \\"name\\": \\"anything\\",
+      \\"type\\": [
+        \\"string\\",
+        \\"Fruit\\",
+        {
+          \\"type\\": \\"enum\\",
+          \\"name\\": \\"Letter\\",
+          \\"symbols\\": [
+            \\"A\\",
+            \\"B\\",
+            \\"C\\"
+          ]
+        },
+        {
+          \\"type\\": \\"array\\",
+          \\"items\\": \\"string\\"
+        },
+        {
+          \\"type\\": \\"map\\",
+          \\"values\\": \\"string\\"
+        },
+        {
+          \\"type\\": \\"fixed\\",
+          \\"name\\": \\"MyFixedThing\\",
+          \\"size\\": 4
+        },
+        {
+          \\"type\\": \\"record\\",
+          \\"name\\": \\"MyInlineRecord\\",
+          \\"fields\\": []
+        }
+      ],
+      \\"doc\\": \\"An examplary union\\"
     }
   ]
 }

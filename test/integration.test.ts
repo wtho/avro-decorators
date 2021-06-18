@@ -14,9 +14,10 @@ import {
   AvroRecord,
   AvroReferenceByName,
   AvroString,
+  AvroUnion,
   Record,
 } from '../src/decorators'
-import { avroSchemaFromClass } from '../src/internals/schema-builder'
+import { avroSchemaFromClass } from '../src/schema-builder'
 import { Constructable } from '../src/types'
 
 @Record()
@@ -27,14 +28,19 @@ const recordWithoutFields: Schema = {
   fields: [],
 }
 
-@Record({ namespace: 'test.avro', name: 'TestModel', aliases: ['TestingModel'], description: 'This is just a test model', order: 'descending' })
+@Record({
+  namespace: 'test.avro',
+  name: 'TestModel',
+  aliases: ['TestingModel'],
+  description: 'This is just a test model',
+})
 class RecordWithClassDecoratorData {}
 const recordWithNamespace: Schema = {
   type: 'record',
   name: 'TestModel',
   namespace: 'test.avro',
   aliases: ['TestingModel'],
-  doc: 'descending',
+  doc: 'This is just a test model',
   fields: [],
 }
 
@@ -81,46 +87,74 @@ const recordPrimitiveTypeFields: Schema = {
 
 @Record()
 class RecordComplexTypeFields {
-  @AvroArray({ ofType: () => 'null' })
+  @AvroArray({ ofType: 'null' })
   justArray: null[]
 
-  @AvroMap({ ofType: () => 'null'})
+  @AvroMap({ ofType: 'null' })
   justMap: Record<string, null>
 
-  @AvroEnum({ name: 'Alphabet', symbols: ['a', 'b', 'c']})
+  @AvroEnum({ name: 'Alphabet', symbols: ['a', 'b', 'c'] })
   justEnum: 'a' | 'b' | 'c'
 
-  @AvroRecord({ ofType: () => {
-    @Record() class InnerRecord {}
-    return InnerRecord
-  }})
+  @AvroRecord({
+    ofType: () => {
+      @Record()
+      class InnerRecord {}
+      return InnerRecord
+    },
+  })
   justRecord: {}
+
+  @AvroUnion({}, [
+    'null',
+    () => {
+      @Record()
+      class InnerRecord {}
+      return InnerRecord
+    },
+    'int',
+  ])
+  justUnion?: {} | number
 }
 const recordComplexTypeFields: Schema = {
   type: 'record',
   name: 'RecordComplexTypeFields',
   fields: [
-    {name: 'justArray', type: { type: 'array', items: 'null'}},
-    {name: 'justMap', type: { type: 'map', values: 'null'}},
-    {name: 'justEnum', type: { name: 'Alphabet', type: 'enum', symbols: ['a', 'b', 'c']}},
-    {name: 'justRecord', type: { name: 'InnerRecord', type: 'record', fields: []}},
+    { name: 'justArray', type: { type: 'array', items: 'null' } },
+    { name: 'justMap', type: { type: 'map', values: 'null' } },
+    {
+      name: 'justEnum',
+      type: { name: 'Alphabet', type: 'enum', symbols: ['a', 'b', 'c'] },
+    },
+    {
+      name: 'justRecord',
+      type: { name: 'InnerRecord', type: 'record', fields: [] },
+    },
+    {
+      name: 'justUnion',
+      type: [
+        'null',
+        { name: 'InnerRecord', type: 'record', fields: [] },
+        'int',
+      ],
+    },
   ],
 }
 
 @Record()
 class RecordReferencedTypeField {
-  @AvroReferenceByName({ referencedTypeName: 'LinkedList' })
+  @AvroReferenceByName({ reference: 'LinkedList' })
   aList: any
 
-  @AvroReferenceByName({ referencedTypeName: 'LinkedList', nullable: true })
+  @AvroReferenceByName({ reference: 'LinkedList', nullable: true })
   optionalList?: any
 }
 const recordReferencedTypeField: Schema = {
   type: 'record',
   name: 'RecordReferencedTypeField',
   fields: [
-    {name: 'aList', type: 'LinkedList'},
-    {name: 'optionalList', type: ['null', 'LinkedList']},
+    { name: 'aList', type: 'LinkedList' },
+    { name: 'optionalList', type: ['null', 'LinkedList'] },
   ],
 }
 

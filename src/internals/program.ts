@@ -15,9 +15,10 @@ export async function runAvroDecorators(
 ) {
   let helpPrinter: { showHelp: (consoleLevel?: string) => void }
   try {
-    const { parsedYargs, command } = parseArgs(processArgv.slice(2))
+    const { parsedYargs, command } = await parseArgs(processArgv.slice(2))
     helpPrinter = parsedYargs
-    const { config } = loadConfig(parsedYargs.argv.config)
+    const argv = await parsedYargs.argv
+    const { config } = loadConfig(argv.config)
 
     const models = await getModels(config.models)
 

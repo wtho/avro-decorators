@@ -142,7 +142,7 @@ describe('config-loader', () => {
         throw new Error('process exit')
       })
 
-      expect(() => parseArgs([])).toThrow('process exit')
+      await expect(() => parseArgs([])).rejects.toThrow('process exit')
 
       expect(mockExit).toHaveBeenCalledWith(1)
     })
@@ -153,7 +153,7 @@ describe('config-loader', () => {
         throw new Error('process exit')
       })
 
-      expect(() => parseArgs(input.split(' '))).toThrow('process exit')
+      await expect(() => parseArgs(input.split(' '))).rejects.toThrow('process exit')
 
       expect(mockExit).toHaveBeenCalledWith(1)
     })
@@ -164,7 +164,7 @@ describe('config-loader', () => {
         throw new Error('process exit')
       })
 
-      expect(() => parseArgs(input.split(' '))).toThrow('process exit')
+      await expect(() => parseArgs(input.split(' '))).rejects.toThrow('process exit')
       expect(mockExit).toHaveBeenCalledWith(1)
     })
 
@@ -174,7 +174,7 @@ describe('config-loader', () => {
         throw new Error('process exit')
       })
 
-      expect(() => parseArgs(input.split(' '))).toThrow('process exit')
+      await expect(() => parseArgs(input.split(' '))).rejects.toThrow('process exit')
 
       expect(mockExit).toHaveBeenCalledWith(1)
     })
@@ -182,7 +182,7 @@ describe('config-loader', () => {
     test(`parses args successfully on "generate"`, async () => {
       const input = 'generate'
 
-      const parsed = parseArgs(input.split(' '))
+      const parsed = await parseArgs(input.split(' '))
 
       expect(parsed.command).toBe('generate')
     })

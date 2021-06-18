@@ -17,7 +17,7 @@ export class Fruit {
   @AvroInt()
   id: number
 
-  @AvroString({ description: 'The name of the fruit' })
+  @AvroString({ fieldDoc: 'The name of the fruit' })
   name: string
 }
 ```
@@ -40,7 +40,7 @@ you need to setup the following
       // reference your models here
       { class: Fruit }
     ],
-    // each referenced model will be written to a file
+    // each referenced model will be written to a avsc file
     outDir: 'src/example/schemas'
   }
 
@@ -63,9 +63,9 @@ you need to setup the following
 ## Configuration
 `Avro Decorators` requires a configuration file written in TypeScript, to ensure the models have applied the decorators accordingly to read the required metadata.
 
-The `models` array is mandatory. Each model requires `class` - a reference to the TypeScript class, and an optional filename `avscFileName` to name the schema output file.
+The `models` array in the config is mandatory. Each model requires `class` - a reference to the TypeScript class, and an optional filename `avscFileName` to name the schema output file.
 
-Additionaly, an output directory `outDir` can be declared. If it is not specified, the generated schemas will be printed to stdout instead.
+Additionally, an output directory `outDir` can be declared. If it is not specified, the generated schemas will be printed to stdout instead.
 
 ### Locating config not in root
 By default, `Avro Decorators` will check the current working directory for the file `avro-decorators.config.ts`. If your config is located in a different folder, pass it to the program using the flag `--config <path>` or `-c <path>`.
@@ -74,7 +74,7 @@ By default, `Avro Decorators` will check the current working directory for the f
 ### Namespace
 Declare a namespace for a record as seen in the following example. If you want to use a model name different than the class name, you can use the `name` property.
 
-For enum fields you can also declare them in the decorator.
+For enum and fixed fields you can also declare them in the decorator.
 ```ts
 @Record({
   namespace: 'fruits.meta',
@@ -89,14 +89,14 @@ export class Fruit {
   fruitType: FruitType
 }
 ```
-### Different field or record name
-To use a different field name in the schema than in the class, you the decorator property `avroOverrideName`:
+### Different field or record name in schema than in class
+To use a different field name in the schema than in the class, you can use the decorator property `fieldName`:
 ```ts
-  @AvroString({avroOverrideName: 'fieldNameInSchema'})
+  @AvroString({ fieldName: 'fieldNameInSchema' })
   fieldNameInClass: string
 ```
 ### Nested Records
-To use a record inside another record on a field type, you should declare both records independently and then reference it on the field:
+To use a record inside another record on a field type, you should declare both records independently and then reference it on the field. It will then be inlined in the schema avsc file:
 ```ts
 @Record()
 export class Address {
@@ -111,7 +111,7 @@ export class User {
 }
 ```
 ### Reference schema by name
-Referencing by name works using the 
+Referencing by name works using `@AvroReferenceByName`:
 ```ts
 @Record()
 export class Fruit {
@@ -134,11 +134,35 @@ This will result in the schema
   ]
 }
 ```
-Note that there is no validation if that referenced type actually exists anywhere in this library.
+Note that there is no validation if that referenced type actually exists anywhere.
+
+### Unions
+Note that if you just want to add a `null` type to a field, you can always use the `nullable` property:
+```ts
+@Record()
+export class Fruit {
+  @AvroString({ nullable: true })
+  field: string | null
+}
+```
+To express more complex unions, use the `@AvroUnion` decorator.
+It requires a second argument, which is an array of all referenced union types.
+```ts
+@Record()
+export class Address { /* ... */ }
+
+@Record()
+export class Model {
+  @AvroUnion(
+    { fieldDoc: 'Can be an int, a string, an address or null' },
+    ['int', 'string', 'null', () => Address]
+  )
+  field: number | string | null | Address
+}
+```
 
 ## Features not supported yet
-* Union
-* Top-level non-record (e. g. enum)
+* Top-level non-record (e. g. enum or fixed)
 * Validation of `name` and `namespace` according to [specification](https://avro.apache.org/docs/current/spec.html#names)
-* Custom tsconfig for model compilation
+* Custom tsconfig for complex model compilation
 

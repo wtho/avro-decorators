@@ -21,15 +21,11 @@ export function isSchemaValid(jsonSchema: Schema): boolean {
     Type.forSchema(jsonSchema as AvscSchema)
     return true
   } catch (err) {
-    // TODO: do not print out here, but return message
-    // console.error('  [type-validation]: Schema is not valid -', err.message)
     return false
   }
 }
 
-export function isPrimitiveType(
-  schema?: Schema
-): schema is PrimitiveAvroType | PrimitiveSchemaType {
+export function isPrimitiveDefinedType(type: string): type is PrimitiveAvroType {
   const primitiveTypeList: PrimitiveAvroType[] = [
     'bytes',
     'boolean',
@@ -40,13 +36,19 @@ export function isPrimitiveType(
     'null',
     'string',
   ]
+  return primitiveTypeList.includes(type as PrimitiveAvroType)
+}
+
+export function isPrimitiveType(
+  schema?: Schema
+): schema is PrimitiveAvroType | PrimitiveSchemaType {
   if (!schema) {
     return false
   }
   if (typeof schema !== 'string' && !Array.isArray(schema)) {
-    return primitiveTypeList.includes(schema.type as PrimitiveAvroType)
+    return isPrimitiveDefinedType(schema.type as PrimitiveAvroType)
   }
-  return primitiveTypeList.includes(schema as PrimitiveAvroType)
+  return isPrimitiveDefinedType(schema as PrimitiveAvroType)
 }
 
 export function getPrimitiveAvroType(

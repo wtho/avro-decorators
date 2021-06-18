@@ -1,27 +1,35 @@
 import {
-  BaseDecoratorArgs,
-  BaseTypeMetadata,
-  ClassType,
-  OfType,
+  ArrayMetadata,
+  BaseFieldDecoratorArgs,
+  InlineTypeDefinition,
+  Prototype,
 } from '../types'
 import {
-  enrichDecoratorMetadata,
+  determineFieldMetadataFromProps,
+  resolveInlineTypeDefinition,
+  storeAvroFieldReflectionMetadata,
   storeAvroFieldTypeReflectionMetadata,
 } from '../internals/decorator-utils'
 
 export function AvroArray<T>(
-  isArrayProps: {
-    ofType: () => OfType<T>
-  } & BaseDecoratorArgs<T[]>
-): (target: any, propertyKey: string) => void {
-  return function (target: any, propertyKey: string) {
-    const typeMetadata: {
-      items: ClassType
-    } & BaseTypeMetadata<T[]> = enrichDecoratorMetadata(
-      { typeName: 'array', items: isArrayProps.ofType() },
-      isArrayProps
+  arrayProps: {
+    ofType: InlineTypeDefinition
+    arrayDefault?: T[]
+  } & BaseFieldDecoratorArgs<T[]>
+): (target: Prototype, propertyKey: string) => void {
+  return function (target: Prototype, propertyKey: string) {
+    const fieldMetadata = determineFieldMetadataFromProps(
+      propertyKey,
+      arrayProps
     )
+    const typeMetadata: ArrayMetadata = {
+      typeName: 'array-type',
+      items: resolveInlineTypeDefinition(arrayProps.ofType),
+      default: arrayProps.arrayDefault,
+      nullable: arrayProps?.nullable ?? false,
+    }
 
+    storeAvroFieldReflectionMetadata(fieldMetadata, target, propertyKey)
     storeAvroFieldTypeReflectionMetadata(typeMetadata, target, propertyKey)
   }
 }

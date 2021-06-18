@@ -16,15 +16,15 @@
       "type": {
         "type": "record",
         "name": "Origin",
-        "namespace": "fruits.meta",
-        "doc": "An origin location",
         "fields": [
           {
             "name": "continent",
             "type": "string",
             "doc": "The continent the fruit is originally from"
           }
-        ]
+        ],
+        "namespace": "fruits.meta",
+        "doc": "An origin location"
       },
       "doc": "The origin of the fruit"
     },
@@ -32,11 +32,11 @@
       "name": "fruitType",
       "type": {
         "type": "enum",
+        "name": "FruitType",
         "symbols": [
           "berry",
           "tropical"
-        ],
-        "name": "FruitType"
+        ]
       }
     },
     {

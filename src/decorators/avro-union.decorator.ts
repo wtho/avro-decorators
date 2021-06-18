@@ -1,26 +1,29 @@
 import {
   BaseFieldDecoratorArgs,
-  PrimitiveDefinedTypeMetadata,
+  InlineInUnionTypeDefinition,
   Prototype,
+  UnionMetadata,
 } from '../types'
 import {
   determineFieldMetadataFromProps,
+  resolveInlineTypeDefinition,
   storeAvroFieldReflectionMetadata,
   storeAvroFieldTypeReflectionMetadata,
 } from '../internals/decorator-utils'
 
-export function AvroNull(
-  nullProps?: Omit<BaseFieldDecoratorArgs<null>, 'nullable'>
+export function AvroUnion<T>(
+  fieldProps: BaseFieldDecoratorArgs<Record<string, T>>,
+  unionTypes: InlineInUnionTypeDefinition[]
 ): (target: Prototype, propertyKey: string) => void {
   return function (target: Prototype, propertyKey: string) {
     const fieldMetadata = determineFieldMetadataFromProps(
       propertyKey,
-      nullProps
+      fieldProps
     )
-    const typeMetadata: PrimitiveDefinedTypeMetadata = {
-      typeName: 'primitive-defined-type',
-      primitiveDefinedType: 'null',
-      nullable: false,
+    const typeMetadata: UnionMetadata = {
+      typeName: 'union-type',
+      types: unionTypes.map((type) => resolveInlineTypeDefinition(type)),
+      nullable: fieldProps?.nullable ?? false,
     }
 
     storeAvroFieldReflectionMetadata(fieldMetadata, target, propertyKey)
