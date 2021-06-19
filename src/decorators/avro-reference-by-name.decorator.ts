@@ -9,8 +9,24 @@ import {
   storeAvroFieldTypeReflectionMetadata,
 } from '../internals/decorator-utils'
 
+/**
+ * Marks a record field as avro schema referenced by name.
+ * 
+ * @param referenceProps A collection of properties to describe the field
+ * and gain granular control of metadata in the generated Avro Schema file.
+ * 
+ * Example:
+ * ```typescript
+ * @Record()
+ * export class Fruit {
+ *   @AvroReferenceByName({ reference: 'Fruit' })
+ *   parentFruit: Fruit
+ * }
+ * ```
+ */
 export function AvroReferenceByName(
   referenceProps?: {
+    /** The name of a defined, non-primitive type. */
     reference: string
   } & BaseFieldDecoratorArgs<string>
 ): (target: Prototype, propertyKey: string) => void {

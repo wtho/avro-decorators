@@ -63,11 +63,20 @@ export type InlineInUnionTypeDefinition =
   | InlineRecordTypeDef<unknown>
 
 export type BaseFieldDecoratorArgs<D> = {
+  /** A string describing this field for users. */
   fieldDoc?: string
+  /** A string providing the name of this field. Falls back to the class field name. */
   fieldName?: string
+  /** Specifies how this field impacts sort ordering of this record. Defaults to 'ascending'. */
   order?: AvroOrder
+  /** Array of strings, providing alternate names for this field. */
   fieldAliases?: string[]
+  /** If true, converts this type into a union and prepends the 'null' type. */
   nullable?: boolean
+  /**
+   * Default value for this field, only used when reading instances that lack the field for
+   * schema evolution purposes. See Avro schema evolution for more information.
+   */
   fieldDefault?: D
 }
 
@@ -83,7 +92,6 @@ export interface FieldMetadata<T> {
 
 export type TypeMetadata =
   | PrimitiveDefinedTypeMetadata
-  // | PrimitiveTypeMetadata
   | ReferencedTypeMetadata
   | RecordClassMetadata
   | EnumMetadata

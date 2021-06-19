@@ -32,7 +32,7 @@ const recordWithoutFields: Schema = {
   namespace: 'test.avro',
   name: 'TestModel',
   aliases: ['TestingModel'],
-  description: 'This is just a test model',
+  typeDoc: 'This is just a test model',
 })
 class RecordWithClassDecoratorData {}
 const recordWithNamespace: Schema = {

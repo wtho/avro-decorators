@@ -56,7 +56,7 @@ describe('schema-builder', () => {
 
       @Record({
         aliases: ['AlternateRecordName1', 'AlternateRecordName2'],
-        description: 'This is just a record model with fields',
+        typeDoc: 'This is just a record model with fields',
         namespace: 'test.models',
       })
       class RecordModelWithFields {

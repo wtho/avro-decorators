@@ -14,7 +14,7 @@ const fruitTypes = ['berry', 'tropical'] as const
 type FruitType = typeof fruitTypes[number]
 
 @Record({
-  description: 'An origin location',
+  typeDoc: 'An origin location',
   namespace: 'fruits.meta',
 })
 export class Origin {

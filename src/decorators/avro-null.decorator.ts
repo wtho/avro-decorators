@@ -9,6 +9,21 @@ import {
   storeAvroFieldTypeReflectionMetadata,
 } from '../internals/decorator-utils'
 
+/**
+ * Marks a record field as avro null schema.
+ * 
+ * @param nullProps A collection of optional properties to describe the field
+ * and gain granular control of metadata in the generated Avro Schema file.
+ * 
+ * Example:
+ * ```typescript
+ * @Record()
+ * export class Fruit {
+ *   @AvroNull()
+ *   nothing: null;
+ * }
+ * ```
+ */
 export function AvroNull(
   nullProps?: Omit<BaseFieldDecoratorArgs<null>, 'nullable'>
 ): (target: Prototype, propertyKey: string) => void {

@@ -9,6 +9,21 @@ import {
   storeAvroFieldTypeReflectionMetadata,
 } from '../internals/decorator-utils'
 
+/**
+ * Marks a record field as avro long schema.
+ * 
+ * @param longProps A collection of optional properties to describe the field
+ * and gain granular control of metadata in the generated Avro Schema file.
+ * 
+ * Example:
+ * ```typescript
+ * @Record()
+ * export class Fruit {
+ *   @AvroLong()
+ *   seeds: number;
+ * }
+ * ```
+ */
 export function AvroLong(
   longProps?: BaseFieldDecoratorArgs<number>
 ): (target: Prototype, propertyKey: string) => void {
