@@ -1,8 +1,9 @@
 {
   "name": "avro-decorators",
   "version": "1.0.0",
-  "description": "",
+  "description": "Typescript class decorators to model your avro schema",
   "main": "build/index.js",
+  "bin": "build/bin/cli.js",
   "scripts": {
     "test": "jest",
     "build": "tsc -p ./tsconfig.build.json"
