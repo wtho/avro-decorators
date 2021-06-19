@@ -4,9 +4,10 @@
 
 <p align="center">
     <a href="https://www.npmjs.com/package/avro-decorators"><img src="https://img.shields.io/npm/v/avro-decorators/latest.svg?style=flat-square" alt="NPM Version" /></a>
-    <a href="https://actions-badge.atrox.dev/wtho/avro-decorators/goto?ref=main"><img alt="Build Status" src="https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fwtho%2Favro-decorators%2Fbadge%3Fref%3Dmain&style=flat-square" /></a>
-    <a href="https://github.com/wtho/avro-decorators/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/avro-decorators.svg?style=flat-square" alt="GitHub license" /></a>
+    <a href="https://github.com/wtho/avro-decorators/blob/main/LICENSE"><img src="https://img.shields.io/github/workflow/status/wtho/avro-decorators/test/main?style=flat-square" alt="CI" /></a>
+    <a href="https://github.com/wtho/avro-decorators/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/avro-decorators?style=flat-square" alt="GitHub license" /></a>
 </p>
+
 
 ## Getting Started
 
