@@ -5,6 +5,7 @@
 <p align="center">
     <a href="https://www.npmjs.com/package/avro-decorators"><img src="https://img.shields.io/npm/v/avro-decorators/latest.svg?style=flat-square" alt="NPM Version" /></a>
     <a href="https://github.com/wtho/avro-decorators/actions/workflows/test.yml"><img src="https://img.shields.io/github/workflow/status/wtho/avro-decorators/test/main?style=flat-square" alt="CI Tests Pipeline" /></a>
+    <a href="https://coveralls.io/github/wtho/avro-decorators?branch=main"><img src="https://img.shields.io/coveralls/github/wtho/avro-decorators?style=flat-square" alt="Test Coverage" /></a>
     <a href="https://github.com/wtho/avro-decorators/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/avro-decorators?style=flat-square" alt="GitHub license" /></a>
 </p>
 
