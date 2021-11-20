@@ -4,6 +4,8 @@
   "description": "Typescript class decorators to model your avro schema",
   "main": "build/index.js",
   "bin": "build/bin/cli.js",
+  "engines" : { "node" : ">=14" },
+  "engineStrict" : true,
   "scripts": {
     "test": "jest",
     "build": "tsc -p ./tsconfig.build.json"
