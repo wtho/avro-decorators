@@ -30,7 +30,7 @@
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/git": "^10.0.1",
     "@types/jest": "^27.0.0",
-    "@types/node": "^16.11.11",
+    "@types/node": "^18.0.1",
     "@types/yargs": "^17.0.0",
     "execa": "^5.1.1",
     "jest": "^27.4.3",
